@@ -66,7 +66,7 @@ class TestPlaces(unittest.TestCase):
             # data = json.loads(resp.data.decode('utf-8'))
             # print(data)
             self.assertEqual(resp.status_code, 201)
-
+     
     def test_delete_place(self):
         '''test place DELETE route'''
         with app.test_client() as c:
@@ -89,6 +89,7 @@ class TestPlaces(unittest.TestCase):
             self.assertEqual(resp1.status_code, 404)
             resp2 = c.get('api/v1/places/{}'.format(new_place.id))
             self.assertEqual(resp2.status_code, 404)
+
 
     def test_get_place(self):
         '''test place GET by id route'''

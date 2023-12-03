@@ -39,18 +39,19 @@ class TestCities(unittest.TestCase):
             self.assertEqual(resp.status_code, 201)
 
     def test_delete_city(self):
-        '''test city DELETE route'''
+    '''test city DELETE route'''
         with app.test_client() as c:
             new_state = State(name="Beckystan")
             storage.new(new_state)
             new_city = City(name="Chensville", state_id=new_state.id)
             storage.new(new_city)
-            resp = c.get('api/v1/cities/{}'.format(new_city.id))
-            self.assertEqual(resp.status_code, 200)
-            resp1 = c.delete('api/v1/cities/{}'.format(new_city.id))
-            self.assertEqual(resp1.status_code, 404)
-            resp2 = c.get('api/v1/cities/{}'.format(new_city.id))
-            self.assertEqual(resp2.status_code, 404)
+            resp_before_delete = c.get('api/v1/cities/{}'.format(new_city.id))
+            self.assertEqual(resp_before_delete.status_code, 200)
+            resp_delete = c.delete('api/v1/cities/{}'.format(new_city.id))
+            self.assertEqual(resp_delete.status_code, 404)
+            resp_after_delete = c.get('api/v1/cities/{}'.format(new_city.id))
+            self.assertEqual(resp_after_delete.status_code, 404)
+
 
     def test_get_city(self):
         '''test city GET by id route'''

@@ -30,18 +30,18 @@ class TestUsers(unittest.TestCase):
                           content_type="application/json")
             self.assertEqual(resp.status_code, 201)
 
-    def test_delete_user(self):
-        '''test user DELETE route'''
-        with app.test_client() as c:
-            new_user = User(first_name="Mojo", last_name="Jojo",
-                            email="123@abc.com", password="0000")
-            storage.new(new_user)
-            resp = c.get('api/v1/users/{}'.format(new_user.id))
-            self.assertEqual(resp.status_code, 200)
-            resp1 = c.delete('api/v1/users/{}'.format(new_user.id))
-            self.assertEqual(resp1.status_code, 404)
-            resp2 = c.get('api/v1/users/{}'.format(new_user.id))
-            self.assertEqual(resp2.status_code, 404)
+     def test_delete_user(self):
+    '''test user DELETE route'''
+    with app.test_client() as c:
+        new_user = User(first_name="Mojo", last_name="Jojo", email="123@abc.com", password="0000")
+        storage.new(new_user)
+        resp_before_delete = c.get('api/v1/users/{}'.format(new_user.id))
+        self.assertEqual(resp_before_delete.status_code, 200)
+        resp_delete = c.delete('api/v1/users/{}'.format(new_user.id))
+        self.assertEqual(resp_delete.status_code, 404)
+        resp_after_delete = c.get('api/v1/users/{}'.format(new_user.id))
+        self.assertEqual(resp_after_delete.status_code, 404)
+
 
     def test_get_user(self):
         '''test user GET by id route'''

@@ -26,4 +26,4 @@ class User(BaseModel, Base):
         email = ""
         password = ""
         first_name = ""
-         not found
+        last_name = ""
