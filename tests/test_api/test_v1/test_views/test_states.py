@@ -29,7 +29,6 @@ class TestStates(unittest.TestCase):
                           content_type="application/json")
             self.assertEqual(resp.status_code, 201)
 
-    
     def test_delete_state(self):
         '''test state DELETE route'''
         with app.test_client() as c:
@@ -41,8 +40,6 @@ class TestStates(unittest.TestCase):
             self.assertEqual(resp1.status_code, 404)
             resp2 = c.get('api/v1/states/{}'.format(new_state.id))
             self.assertEqual(resp2.status_code, 404)
-
-
 
     def test_get_state(self):
         '''test state GET by id route'''

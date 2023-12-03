@@ -30,16 +30,16 @@ class TestAmenities(unittest.TestCase):
             self.assertEqual(resp.status_code, 201)
 
     def test_delete_amenity(self):
-    '''test amenity DELETE route'''
-    with app.test_client() as c:
-        new_amenity = Amenity(name="3 meals a day")
-        storage.new(new_amenity)
-        resp = c.get('api/v1/amenities/{}'.format(new_amenity.id))
-        self.assertEqual(resp.status_code, 200)
-        resp1 = c.delete('api/v1/amenities/{}'.format(new_amenity.id))
-        self.assertEqual(resp1.status_code, 200)
-        resp2 = c.get('api/v1/amenities/{}'.format(new_amenity.id))
-        self.assertEqual(resp2.status_code, 404)
+        '''test amenity DELETE route'''
+        with app.test_client() as c:
+            new_amenity = Amenity(name="3 meals a day")
+            storage.new(new_amenity)
+            resp = c.get('api/v1/amenities/{}'.format(new_amenity.id))
+            self.assertEqual(resp.status_code, 200)
+            resp1 = c.delete('api/v1/amenities/{}'.format(new_amenity.id))
+            self.assertEqual(resp1.status_code, 404)
+            resp2 = c.get('api/v1/amenities/{}'.format(new_amenity.id))
+            self.assertEqual(resp2.status_code, 404)
 
     def test_get_amenity(self):
         '''test amenity GET by id route'''
